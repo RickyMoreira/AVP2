@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <title>Check-Out Instructions</title>
+  <title>Instruções Gerais</title>
   <style>
     body {
       font-family: sans-serif;
@@ -10,7 +10,7 @@
       max-width: 900px;
       margin: auto;
     }
-    h1 {
+    h1, h2 {
       text-align: center;
     }
     select {
@@ -35,54 +35,106 @@
       font-size: 1.1em;
       cursor: pointer;
     }
+    .qr-tip {
+      font-style: italic;
+      color: #555;
+    }
   </style>
 </head>
 <body>
 
-  <h1>🏡 Check-Out Instructions / Instruções / Instrucciones</h1>
+  <h1>🏡 Instruções da Casa</h1>
 
-  <label for="language">🌐 Selecionar idioma / Select language / Seleccionar idioma:</label>
+  <label for="language">🌐 Selecionar idioma:</label>
   <select id="language" onchange="switchLang(this.value)">
     <option value="pt">🇧🇷 Português</option>
-    <option value="en">🇺🇸 English</option>
-    <option value="es">🇪🇸 Español</option>
+    <option value="en">🇺🇸 English (em breve)</option>
+    <option value="es">🇪🇸 Español (pronto para tradução)</option>
   </select>
 
-  <!-- Portuguese -->
   <section id="lang-pt">
     <h2>🇧🇷 Português</h2>
-    <details><summary>🕒 Horário de Check-out</summary><p>Pedimos por gentileza não atrasar o horário de check-out.</p></details>
-    <details><summary>🚶 Saída Antecipada</summary><p>Se você planeja sair antes do horário agendado, por gentileza avisar assim que possível.</p></details>
-    <details><summary>🗑️ Lixo e Descarte</summary><p>Ensacar o lixo e deixar nas latas.<br>🍞 🧃 Alimentos indesejados podem ir para geladeira ou balcão.</p></details>
-    <details><summary>🧼 Limpeza Geral</summary><p>Manter a casa limpa.<br>🛏️ 🚿 🧹 Sujeira excessiva pode gerar taxa extra.</p></details>
-    <details><summary>🔒 Segurança e Inventário</summary><p>Tranque portas/janelas. Não remova itens da casa.</p></details>
-    <details><summary>🧾 Danos</summary><p>Informe sobre qualquer dano ou perda.</p></details>
-    <details><summary>🔥 Churrasqueira</summary><p>Limpar após uso.<br><small>A limpeza da churrasqueira não é responsabilidade da equipe.</small></p></details>
+
+    <details><summary>📋 Instruções Gerais</summary>
+      <p>Se precisar entrar em contato, por favor use o app do Airbnb. Procuramos responder o mais rápido possível.</p>
+      <p>👥 Hóspede extra que não esteja na reserva (incluindo crianças) deve ser comunicado para inclusão.</p>
+      <p>📶 <strong>Wi-Fi:</strong> Casa323-5G<br>
+      🔑 <strong>Senha:</strong> Curado@323</p>
+      <p class="qr-tip">📱 Dica: Aponte a câmera para o QR code na parede para abrir o link.</p>
+      <p>🕓 <strong>Check-in:</strong> 16:00h<br>
+      🕙 <strong>Check-out:</strong> 10:00h</p>
+      <p>🗑️ <strong>Coleta de lixo:</strong> Terça, Quinta e Sábado após 19:00h<br>
+      ♻️ <strong>Reciclável:</strong> Segunda e Sexta-feira após 19:00h</p>
+      <p>💡❄️ Não esqueça de desligar o ar-condicionado se não estiver usando.</p>
+    </details>
+
+    <details><summary>🏡 Instruções para CHECK-OUT</summary>
+      <ul>
+        <li>🕒 Não atrasar o horário de check-out.</li>
+        <li>🚶 Avisar se sair antes do horário agendado.</li>
+        <li>🗑️ Ensacar o lixo e deixar nas latas.</li>
+        <li>🍞 🧃 Deixar alimentos/bebidas indesejados na geladeira ou balcão.</li>
+        <li>🧼 Manter limpeza razoável.</li>
+        <li>🛏️ 🚿 🧹 Sujeira excessiva pode gerar taxa extra.</li>
+        <li>🔒 Trancar janelas e portas.</li>
+        <li>🚫📦 Não remover itens do inventário (substituições serão cobradas).</li>
+        <li>🧾 Informar danos ou perdas.</li>
+        <li>🔥 Limpar a churrasqueira após uso. <br><small>(Equipe de limpeza não é responsável.)</small></li>
+      </ul>
+    </details>
+
+    <details><summary>📌 Regras Gerais</summary>
+      <ul>
+        <li>🚭 Proibido fumar dentro da casa.</li>
+        <li>💡❄️ Não deixar luzes ou A/C ligados ao sair.</li>
+        <li>🚷 Não permitido receber visitas (exceto mediante aviso à anfitriã).</li>
+        <li>🍽️ Usar utensílios com cuidado.</li>
+        <li>👶⚠️ Atenção especial com crianças, principalmente nas escadas.</li>
+        <li>🔕 Silêncio das 22h às 7h diariamente.</li>
+        <li>🎶🗣️ Música/conversa alta não devem incomodar vizinhos.</li>
+      </ul>
+    </details>
+
+    <details><summary>❄️ Uso do Ar-condicionado</summary>
+      <ul>
+        <li>🚪🪟 Manter portas e janelas fechadas com A/C ligado.</li>
+        <li>🌡️ Temperatura ideal: 22–23 graus (nunca menos).</li>
+      </ul>
+    </details>
+
+    <details><summary>🔥 Uso da Churrasqueira</summary>
+      <ul>
+        <li>🚰 Abrir registro de água próximo ao banheiro na parte de baixo.<br><small>(Evita danos por pressão.)</small></li>
+        <li>🧹 Deixar o ambiente limpo.</li>
+        <li>🍴 Lavar e devolver utensílios usados.</li>
+        <li>🚫🔥 Nunca jogar água nas brasas.</li>
+        <li>🔉 Música em volume moderado.</li>
+        <li>🗑️ Recolher o lixo.</li>
+        <li>🚰 Fechar o registro de água após uso.</li>
+      </ul>
+    </details>
+
+    <details><summary>⬇️ Parte de Baixo da Casa</summary>
+      <ul>
+        <li>🚪🔒 Manter portas de vidro e portão fechados.</li>
+        <li>💡 Desligar luzes ao sair.</li>
+      </ul>
+    </details>
+
+    <details><summary>🌳 Regras para o Jardim</summary>
+      <ul>
+        <li>🚫🌲 Não subir nas árvores.</li>
+        <li>🚫🍏 Não colher frutos verdes.</li>
+        <li>🚫🌿 Não arrancar ou danificar plantas.</li>
+        <li>🐶💩 Recolher dejetos de seu cachorro.</li>
+      </ul>
+    </details>
+
   </section>
 
-  <!-- English -->
-  <section id="lang-en">
-    <h2>🇺🇸 English</h2>
-    <details><summary>🕒 Check-Out Time</summary><p>Please don’t delay the scheduled check-out.</p></details>
-    <details><summary>🚶 Early Departure</summary><pIf leaving early, kindly notify us in advance.</p></details>
-    <details><summary>🗑️ Trash & Food</summary><pBag the trash & place in bins.<br>🍞 🧃 Leave any unwanted food/drinks in fridge or on counter.</p></details>
-    <details><summary>🧼 General Cleanliness</summary><pPlease keep the home clean.<br>🛏️ 🚿 🧹 Excessive mess may incur extra fee.</p></details>
-    <details><summary>🔒 Security & Inventory</summary><pLock doors/windows. Do not remove inventory items.</p></details>
-    <details><summary>🧾 Damages</summary><pPlease report any damage or loss.</p></details>
-    <details><summary>🔥 Barbecue</summary><pClean after use.<br><small>The cleaning team is not responsible for the grill.</small></p></details>
-  </section>
-
-  <!-- Spanish -->
-  <section id="lang-es">
-    <h2>🇪🇸 Español</h2>
-    <details><summary>🕒 Hora de Salida</summary><pPor favor no se retrase en el check-out.</p></details>
-    <details><summary>🚶 Salida Temprana</summary><pSi piensa salir antes, avísenos con anticipación.</p></details>
-    <details><summary>🗑️ Basura y Comida</summary><pColoque la basura en bolsas y en los tachos.<br>🍞 🧃 Deje alimentos/bebidas no deseados en la nevera o mostrador.</p></details>
-    <details><summary>🧼 Limpieza General</summary><pMantenga la casa limpia.<br>🛏️ 🚿 🧹 Suciedad excesiva puede generar tarifa adicional.</p></details>
-    <details><summary>🔒 Seguridad e Inventario</summary><pCierre puertas/ventanas. No retire objetos del inventario.</p></details>
-    <details><summary>🧾 Daños</summary><pInforme cualquier daño o pérdida.</p></details>
-    <details><summary>🔥 Parrilla</summary><pLimpie después de usar.<br><small>La limpieza de la parrilla no es responsabilidad del equipo.</small></p></details>
-  </section>
+  <!-- Future translations -->
+  <section id="lang-en"><h2>🇺🇸 English (Coming Soon)</h2></section>
+  <section id="lang-es"><h2>🇪🇸 Español (Próximamente)</h2></section>
 
   <script>
     function switchLang(code) {
@@ -90,8 +142,7 @@
       document.getElementById("lang-en").style.display = code === "en" ? "block" : "none";
       document.getElementById("lang-es").style.display = code === "es" ? "block" : "none";
     }
-    // Set default language
-    switchLang("pt");
+    switchLang("pt"); // default
   </script>
 
 </body>
