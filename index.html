@@ -1,149 +1,72 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Instruções Gerais</title>
+  <title>Guest FAQ</title>
   <style>
-    body {
-      font-family: sans-serif;
-      padding: 20px;
-      max-width: 900px;
-      margin: auto;
-    }
-    h1, h2 {
-      text-align: center;
-    }
-    select {
-      display: block;
-      margin: 1em auto;
-      font-size: 1em;
-      padding: 0.4em;
-    }
-    section {
-      display: none;
-      margin-top: 2em;
-    }
-    details {
-      margin-bottom: 1em;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      padding: 10px;
-      background: #f9f9f9;
-    }
-    summary {
-      font-weight: bold;
-      font-size: 1.1em;
-      cursor: pointer;
-    }
-    .qr-tip {
-      font-style: italic;
-      color: #555;
-    }
+    body { font-family: Arial, sans-serif; margin: 20px; line-height: 1.5; }
+    select { font-size: 16px; margin-bottom: 20px; }
+    .section { margin-top: 20px; }
+    .footer { margin-top: 40px; font-style: italic; text-align: center; }
+    .icon { height: 20px; vertical-align: middle; margin-right: 8px; }
   </style>
+  <script>
+    function showLang(lang) {
+      const sections = document.querySelectorAll('.lang');
+      sections.forEach(s => s.style.display = 'none');
+      document.querySelectorAll('.lang-' + lang).forEach(s => s.style.display = 'block');
+    }
+  </script>
 </head>
 <body>
-
-  <h1>🏡 Instruções da Casa</h1>
-
-  <label for="language">🌐 Selecionar idioma:</label>
-  <select id="language" onchange="switchLang(this.value)">
-    <option value="pt">🇧🇷 Português</option>
-    <option value="en">🇺🇸 English (em breve)</option>
-    <option value="es">🇪🇸 Español (pronto para tradução)</option>
+  <label for="lang">🌐 Language / Idioma / Idioma:</label>
+  <select id="lang" onchange="showLang(this.value)">
+    <option value="en">English 🇺🇸</option>
+    <option value="pt">Português 🇧🇷</option>
+    <option value="es">Español 🇪🇸</option>
   </select>
 
-  <section id="lang-pt">
-    <h2>🇧🇷 Português</h2>
+ <!-- 🌐 English 🇺🇸 -->
+<div class="section lang lang-en">
+  <h3><img class="icon" src="data:image/svg+xml;base64,...WiFiIconBase64..." />Wi-Fi Information</h3>
+  <p>Network: <strong>Guest_WiFi</strong><br>Password: <strong>sunshine123</strong></p>
 
-    <details><summary>📋 Guia Rapido </summary>
-      <p>Se precisar entrar em contato, por favor use o app do Airbnb. Procuramos responder o mais rápido possível.</p>
-      <p>👥 Hóspede extra que não esteja na reserva (incluindo crianças) deve ser comunicado para inclusão.</p>
-      <p>📶 <strong>Wi-Fi:</strong> Casa323-5G<br>
-      🔑 <strong>Senha:</strong> Curado@323</p>
-      <p class="qr-tip">📱 Dica: Aponte a câmera para o QR code na parede para abrir o link.</p>
-      <p>🕓 <strong>Check-in:</strong> 16:00h<br>
-      🕙 <strong>Check-out:</strong> 10:00h</p>
-      <p>🗑️ <strong>Coleta de lixo:</strong> Terça, Quinta e Sábado após 19:00h<br>
-      ♻️ <strong>Reciclável:</strong> Segunda e Sexta-feira após 19:00h</p>
-      <p>💡❄️ Não esqueça de desligar o ar-condicionado se não estiver usando.</p>
-    </details>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...QRIconBase64..." />QR Tip</h3>
+  <p>Scan this QR code for quick access to all property details!</p>
 
-    <details><summary>🏡 Instruções para CHECK-OUT</summary>
-      <ul>
-        <li>🕒 Não atrasar o horário de check-out.</li>
-        <li>🚶 Avisar se sair antes do horário agendado.</li>
-        <li>🗑️ Ensacar o lixo e deixar nas latas.</li>
-        <li>🍞 🧃 Deixar alimentos/bebidas indesejados na geladeira ou balcão.</li>
-        <li>🧼 Manter limpeza razoável.</li>
-        <li>🛏️ 🚿 🧹 Sujeira excessiva pode gerar taxa extra.</li>
-        <li>🔒 Trancar janelas e portas.</li>
-        <li>🚫📦 Não remover itens do inventário (substituições serão cobradas).</li>
-        <li>🧾 Informar danos ou perdas.</li>
-        <li>🔥 Limpar a churrasqueira após uso. <br><small>(Equipe de limpeza não é responsável.)</small></li>
-      </ul>
-    </details>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...ClockIconBase64..." />Check-In & Check-Out</h3>
+  <p>Check-in: 3:00 PM<br>Check-out: 10:00 AM</p>
 
-    <details><summary>📌 Regras Gerais</summary>
-      <ul>
-        <li>🚭 Proibido fumar dentro da casa.</li>
-        <li>💡❄️ Não deixar luzes ou A/C ligados ao sair.</li>
-        <li>🚷 Não permitido receber visitas (exceto mediante aviso à anfitriã).</li>
-        <li>🍽️ Usar utensílios com cuidado.</li>
-        <li>👶⚠️ Atenção especial com crianças, principalmente nas escadas.</li>
-        <li>🔕 Silêncio das 22h às 7h diariamente.</li>
-        <li>🎶🗣️ Música/conversa alta não devem incomodar vizinhos.</li>
-      </ul>
-    </details>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...TrashIconBase64..." />Trash Days</h3>
+  <p>Monday & Thursday mornings. Please place bins by the curb before 7:00 AM.</p>
+</div>
 
-    <details><summary>❄️ Uso do Ar-condicionado</summary>
-      <ul>
-        <li>🚪🪟 Manter portas e janelas fechadas com A/C ligado.</li>
-        <li>🌡️ Temperatura ideal: 22–23 graus (nunca menos).</li>
-      </ul>
-    </details>
+<!-- 🇧🇷 Português -->
+<div class="section lang lang-pt" style="display:none">
+  <h3><img class="icon" src="data:image/svg+xml;base64,...WiFiIconBase64..." />Informações do Wi-Fi</h3>
+  <p>Rede: <strong>Guest_WiFi</strong><br>Senha: <strong>sunshine123</strong></p>
 
-    <details><summary>🔥 Uso da Churrasqueira</summary>
-      <ul>
-        <li>🚰 Abrir registro de água próximo ao banheiro na parte de baixo.<br><small>(Evita danos por pressão.)</small></li>
-        <li>🧹 Deixar o ambiente limpo.</li>
-        <li>🍴 Lavar e devolver utensílios usados.</li>
-        <li>🚫🔥 Nunca jogar água nas brasas.</li>
-        <li>🔉 Música em volume moderado.</li>
-        <li>🗑️ Recolher o lixo.</li>
-        <li>🚰 Fechar o registro de água após uso.</li>
-      </ul>
-    </details>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...QRIconBase64..." />Dica do QR Code</h3>
+  <p>Escaneie este QR code para acessar os detalhes da propriedade rapidamente!</p>
 
-    <details><summary>⬇️ Parte de Baixo da Casa</summary>
-      <ul>
-        <li>🚪🔒 Manter portas de vidro e portão fechados.</li>
-        <li>💡 Desligar luzes ao sair.</li>
-      </ul>
-    </details>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...ClockIconBase64..." />Check-In & Check-Out</h3>
+  <p>Check-in: 15h00<br>Check-out: 10h00</p>
 
-    <details><summary>🌳 Regras para o Jardim</summary>
-      <ul>
-        <li>🚫🌲 Não subir nas árvores.</li>
-        <li>🚫🍏 Não colher frutos verdes.</li>
-        <li>🚫🌿 Não arrancar ou danificar plantas.</li>
-        <li>🐶💩 Recolher dejetos de seu cachorro.</li>
-      </ul>
-    </details>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...TrashIconBase64..." />Dias de Lixo</h3>
+  <p>Segunda e quinta de manhã. Por favor, coloque as lixeiras na calçada antes das 7h00.</p>
+</div>
 
-  </section>
+<!-- 🇪🇸 Español -->
+<div class="section lang lang-es" style="display:none">
+  <h3><img class="icon" src="data:image/svg+xml;base64,...WiFiIconBase64..." />Información Wi-Fi</h3>
+  <p>Red: <strong>Guest_WiFi</strong><br>Contraseña: <strong>sunshine123</strong></p>
 
-  <!-- Future translations -->
-  <section id="lang-en"><h2>🇺🇸 English (Coming Soon)</h2></section>
-  <section id="lang-es"><h2>🇪🇸 Español (Próximamente)</h2></section>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...QRIconBase64..." />Consejo QR</h3>
+  <p>¡Escanee este código QR para acceder rápidamente a todos los detalles de la propiedad!</p>
 
-  <script>
-    function switchLang(code) {
-      document.getElementById("lang-pt").style.display = code === "pt" ? "block" : "none";
-      document.getElementById("lang-en").style.display = code === "en" ? "block" : "none";
-      document.getElementById("lang-es").style.display = code === "es" ? "block" : "none";
-    }
-    switchLang("pt"); // default
-  </script>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...ClockIconBase64..." />Check-In & Check-Out</h3>
+  <p>Check-in: 3:00 PM<br>Check-out: 10:00 AM</p>
 
-</body>
-</html>
+  <h3><img class="icon" src="data:image/svg+xml;base64,...TrashIconBase64..." />Días de Basura</h3>
+  <p>Lunes y jueves por la mañana. Coloque los contenedores en la acera antes de las 7:00 AM.</p>
+</div>
