@@ -12,12 +12,16 @@
     }
     h1 {
       text-align: center;
-      margin-bottom: 1.5em;
+    }
+    select {
+      display: block;
+      margin: 1em auto;
+      font-size: 1em;
+      padding: 0.4em;
     }
     section {
-      margin-bottom: 2em;
-      border-bottom: 2px solid #ccc;
-      padding-bottom: 1em;
+      display: none;
+      margin-top: 2em;
     }
     details {
       margin-bottom: 1em;
@@ -35,43 +39,60 @@
 </head>
 <body>
 
-  <h1>🏡 Instruções de Check-Out / Check-Out Instructions / Instrucciones de Salida</h1>
+  <h1>🏡 Check-Out Instructions / Instruções / Instrucciones</h1>
 
-  <section>
+  <label for="language">🌐 Selecionar idioma / Select language / Seleccionar idioma:</label>
+  <select id="language" onchange="switchLang(this.value)">
+    <option value="pt">🇧🇷 Português</option>
+    <option value="en">🇺🇸 English</option>
+    <option value="es">🇪🇸 Español</option>
+  </select>
+
+  <!-- Portuguese -->
+  <section id="lang-pt">
     <h2>🇧🇷 Português</h2>
     <details><summary>🕒 Horário de Check-out</summary><p>Pedimos por gentileza não atrasar o horário de check-out.</p></details>
     <details><summary>🚶 Saída Antecipada</summary><p>Se você planeja sair antes do horário agendado, por gentileza avisar assim que possível.</p></details>
-    <details><summary>🗑️ Lixo e Descarte</summary><p>Ensacar o lixo e deixar nas latas.<br>🍞 🧃 Deixe alimentos/bebidas indesejados na geladeira ou balcão.</p></details>
-    <details><summary>🧼 Limpeza Geral</summary><p>Mantenha a casa em condição razoável.<br>🛏️ 🚿 🧹 Roupas e pisos excessivamente sujos podem gerar taxa extra.</p></details>
-    <details><summary>🔒 Segurança</summary><p>Tranque janelas e portas.</p></details>
-    <details><summary>📦 Inventário</summary><p>Não remova itens da casa. Custos de substituição serão cobrados.</p></details>
-    <details><summary>🧾 Danos e Perdas</summary><p>Informe sobre qualquer dano ou perda.</p></details>
-    <details><summary>🔥 Churrasqueira</summary><p>Limpe após uso.<br><small>(Equipe de limpeza não responsável.)</small></p></details>
+    <details><summary>🗑️ Lixo e Descarte</summary><p>Ensacar o lixo e deixar nas latas.<br>🍞 🧃 Alimentos indesejados podem ir para geladeira ou balcão.</p></details>
+    <details><summary>🧼 Limpeza Geral</summary><p>Manter a casa limpa.<br>🛏️ 🚿 🧹 Sujeira excessiva pode gerar taxa extra.</p></details>
+    <details><summary>🔒 Segurança e Inventário</summary><p>Tranque portas/janelas. Não remova itens da casa.</p></details>
+    <details><summary>🧾 Danos</summary><p>Informe sobre qualquer dano ou perda.</p></details>
+    <details><summary>🔥 Churrasqueira</summary><p>Limpar após uso.<br><small>A limpeza da churrasqueira não é responsabilidade da equipe.</small></p></details>
   </section>
 
-  <section>
+  <!-- English -->
+  <section id="lang-en">
     <h2>🇺🇸 English</h2>
-    <details><summary>🕒 Check-Out Time</summary><p>Please do not delay the scheduled check-out time.</p></details>
-    <details><summary>🚶 Early Departure</summary><p>If you plan to leave earlier than scheduled, please let us know as soon as possible.</p></details>
-    <details><summary>🗑️ Trash and Food</summary><p>Bag the trash and leave it in the bins.<br>🍞 🧃 Unwanted food/drinks can be left in the fridge or on the counter.</p></details>
-    <details><summary>🧼 Cleaning</summary><p>Please keep the house reasonably clean.<br>🛏️ 🚿 🧹 Excessive mess may lead to an extra cleaning fee.</p></details>
-    <details><summary>🔒 Lock-Up</summary><p>Lock all windows and doors.</p></details>
-    <details><summary>📦 Inventory</summary><pPlease do not remove any household items. Replacement costs will apply.</p></details>
-    <details><summary>🧾 Damage or Loss</summary><pPlease report any damage or missing items.</p></details>
-    <details><summary>🔥 Barbecue</summary><pClean the grill after use.<br><small>(Cleaning staff are not responsible.)</small></p></details>
+    <details><summary>🕒 Check-Out Time</summary><p>Please don’t delay the scheduled check-out.</p></details>
+    <details><summary>🚶 Early Departure</summary><pIf leaving early, kindly notify us in advance.</p></details>
+    <details><summary>🗑️ Trash & Food</summary><pBag the trash & place in bins.<br>🍞 🧃 Leave any unwanted food/drinks in fridge or on counter.</p></details>
+    <details><summary>🧼 General Cleanliness</summary><pPlease keep the home clean.<br>🛏️ 🚿 🧹 Excessive mess may incur extra fee.</p></details>
+    <details><summary>🔒 Security & Inventory</summary><pLock doors/windows. Do not remove inventory items.</p></details>
+    <details><summary>🧾 Damages</summary><pPlease report any damage or loss.</p></details>
+    <details><summary>🔥 Barbecue</summary><pClean after use.<br><small>The cleaning team is not responsible for the grill.</small></p></details>
   </section>
 
-  <section>
+  <!-- Spanish -->
+  <section id="lang-es">
     <h2>🇪🇸 Español</h2>
-    <details><summary>🕒 Hora de Salida</summary><p>Por favor no se retrase al realizar el check-out.</p></details>
-    <details><summary>🚶 Salida Anticipada</summary><p>Si planea salir antes de lo previsto, por favor avísenos lo antes posible.</p></details>
-    <details><summary>🗑️ Basura y Alimentos</summary><p>Coloque la basura en bolsas y deposítela en los tachos.<br>🍞 🧃 Puede dejar comida/bebidas no deseadas en la nevera o en el mostrador.</p></details>
-    <details><summary>🧼 Limpieza</summary><p>Mantenga la casa en condiciones razonables.<br>🛏️ 🚿 🧹 Exceso de suciedad puede implicar tarifa adicional de limpieza.</p></details>
-    <details><summary>🔒 Seguridad</summary><p>Cierre todas las ventanas y puertas.</p></details>
-    <details><summary>📦 Inventario</summary><p>No retire ningún objeto de la casa. Se cobrará por reposiciones.</p></details>
-    <details><summary>🧾 Daños o Pérdidas</summary><pInforme cualquier daño o pérdida, aunque sea pequeña.</p></details>
-    <details><summary>🔥 Parrilla</summary><pLimpie después de usar.<br><small>(El equipo de limpieza no se encarga de la parrilla.)</small></p></details>
+    <details><summary>🕒 Hora de Salida</summary><pPor favor no se retrase en el check-out.</p></details>
+    <details><summary>🚶 Salida Temprana</summary><pSi piensa salir antes, avísenos con anticipación.</p></details>
+    <details><summary>🗑️ Basura y Comida</summary><pColoque la basura en bolsas y en los tachos.<br>🍞 🧃 Deje alimentos/bebidas no deseados en la nevera o mostrador.</p></details>
+    <details><summary>🧼 Limpieza General</summary><pMantenga la casa limpia.<br>🛏️ 🚿 🧹 Suciedad excesiva puede generar tarifa adicional.</p></details>
+    <details><summary>🔒 Seguridad e Inventario</summary><pCierre puertas/ventanas. No retire objetos del inventario.</p></details>
+    <details><summary>🧾 Daños</summary><pInforme cualquier daño o pérdida.</p></details>
+    <details><summary>🔥 Parrilla</summary><pLimpie después de usar.<br><small>La limpieza de la parrilla no es responsabilidad del equipo.</small></p></details>
   </section>
+
+  <script>
+    function switchLang(code) {
+      document.getElementById("lang-pt").style.display = code === "pt" ? "block" : "none";
+      document.getElementById("lang-en").style.display = code === "en" ? "block" : "none";
+      document.getElementById("lang-es").style.display = code === "es" ? "block" : "none";
+    }
+    // Set default language
+    switchLang("pt");
+  </script>
 
 </body>
 </html>
