@@ -54,8 +54,105 @@
 
   <div class="qr-wrapper" id="qrWrapper" style="display:none;">
     <div class="wifi-label">
+      <!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wi-Fi QR Code Generator</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+      background: #f0f0f0;
+    }
+    input, select, button {
+      padding: 0.6em;
+      margin: 0.5em;
+      font-size: 1em;
+    }
+    .qr-wrapper {
+      margin-top: 1.5em;
+      display: inline-block;
+      background: #fff;
+      padding: 1em;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    .wifi-label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5em;
+      margin-bottom: 0.5em;
+      font-size: 1.2em;
+      font-weight: bold;
+    }
+    .wifi-label img {
+      width: 24px;
+      height: 24px;
+    }
+  </style>
+</head>
+<body>
+  <h2>📡 Wi-Fi QR Code Generator</h2>
+  <input type="text" id="ssid" placeholder="Wi-Fi Name (SSID)" size="30" /><br />
+  <input type="text" id="password" placeholder="Password" size="30" /><br />
+  <select id="encryption">
+    <option value="WPA">WPA/WPA2</option>
+    <option value="WEP">WEP</option>
+    <option value="nopass">Open (no password)</option>
+  </select><br />
+  <label><input type="checkbox" id="hidden" /> Hidden Network</label><br />
+  <button onclick="generateWiFiQR()">Generate QR</button>
+  <button onclick="downloadQR()">Download PNG</button>
+
+  <div class="qr-wrapper" id="qrWrapper" style="display:none;">
+    <div class="wifi-label">
       <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwMDAwIiBoZWlnaHQ9IjI0IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHdpZHRoPSIyNCIgeG1sbnM9Imh0dHA6Ly93d3cudzMu
 b3JnLzIwMDAvc3ZnIj48cGF0aCBkPSJNMTIgMTguM2MtMS4yIDAtMi4zLjUtMy4xIDEuMy0uMi4yLS4yLjUtLjEuNy4yLjIuNS4yLjcuMS43LS44LjctMS44IDEuMi0zLjEgMS4ycyAyLjMtLjUgMy4xLTEuM2MuMi0uMi4yLS41LjEtLjctLjItLjItLjUtLjItLjctMS4xLS44LTEuOC0xLjItMy4xLTEuMiIvPjxwYXRoIGQ9Ik0xMiAxNS4zYy0xLjYgMC0zLjEuNi00LjIgMS42LS4yLjItLjIuNSAwIC43LjIuMi41LjIuNy4xLjctLjYgMS41LTEuNSAyLjQtMi41IDIuNHMyLjEtLjkgMi41LTIuNWMuMi0uMi4yLS41IDAtLjctLjItLjItLjUtLjItLjctLjEtMS4xLS45LTIuNi0xLjUtNC4yLTEuNSIvPjxwYXRoIGQ9Ik0xMiAxMi4zYy0yLjUgMC00LjggMS02LjUgMi42LS4yLjItLjIuNSAwIC43LjIuMi41LjIuNy4xLjctLjUgMS4yLTEuMiAxLjgtMi4xIDIuMi0uOS4zLTEuOS40LTIuOS40cy0yLS4xLTIuOS0uNGMtLjktLjQtMS42LTEuMS0yLjEtMi4yLS4yLS4yLS41LS4yLS43IDAtLjIuMi0uMi41IDAgLjcgMS43IDEuNiAzLjkgMi42IDYuNSAyLjZzNC44LTEgNi41LTIuNmMuMi0uMi4yLS41IDAtLjctLjItLjItLjUtLjItLjctLjEtMS4xLS45LTIuNi0xLjUtNC4yLTEuNSIvPjwvc3ZnPg==" alt="Wi-Fi Icon" />
+      <span>Wi-Fi</span>
+    </div>
+    <canvas id="qrCanvas"></canvas>
+  </div>
+
+  <!-- QR Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
+  <script>
+    function generateWiFiQR() {
+      const ssid = document.getElementById("ssid").value;
+      const password = document.getElementById("password").value;
+      const encryption = document.getElementById("encryption").value;
+      const hidden = document.getElementById("hidden").checked;
+
+      const wifiString = `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden};`;
+
+      const canvas = document.getElementById("qrCanvas");
+      QRCode.toCanvas(canvas, wifiString, {
+        errorCorrectionLevel: 'H',
+        margin: 2,
+        scale: 6,
+        color: {
+          dark: "#000000",
+          light: "#ffffff"
+        }
+      }, function (error) {
+        if (error) console.error(error);
+        else document.getElementById("qrWrapper").style.display = "inline-block";
+      });
+    }
+
+    function downloadQR() {
+      const canvas = document.getElementById("qrCanvas");
+      const link = document.createElement("a");
+      link.download = "wifi-qr.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
+    }
+  </script>
+</body>
+</html>
       <span>Wi-Fi</span>
     </div>
     <canvas id="qrCanvas"></canvas>
