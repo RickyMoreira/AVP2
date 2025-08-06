@@ -22,4 +22,60 @@
   <label for="wifiPass">Wi-Fi Password</label>
   <input type="text" id="wifiPass">
 
-  <label for="propertyName">
+  <label for="propertyName">Property Name</label>
+  <input type="text" id="propertyName">
+
+  <label for="checkOutTime">Check-Out Time</label>
+  <input type="text" id="checkOutTime" placeholder="e.g. 11:00 AM">
+
+  <button onclick="generate()">Generate Info</button>
+
+  <div class="output" id="output"></div>
+
+  <script>
+    function generate() {
+      const ssid = document.getElementById('wifiName').value;
+      const pass = document.getElementById('wifiPass').value;
+      const name = document.getElementById('propertyName').value;
+      const time = document.getElementById('checkOutTime').value;
+
+      const qrData = `WIFI:T:WPA;S:${ssid};P:${pass};;`;
+      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=150x150`;
+
+      document.getElementById('output').innerHTML = `
+        <h2>📶 Wi-Fi Sign</h2>
+        <p><strong>${name}</strong></p>
+        <p>Network: <strong>${ssid}</strong><br>Password: <strong>${pass}</strong></p>
+        <img src="${qrUrl}" alt="Wi-Fi QR Code" class="qr">
+
+        <h2>✅ Check-Out Checklist</h2>
+        <ul>
+          <li>⏰ Check-out by <strong>${time}</strong></li>
+          <li>🗑️ Bag and dispose of trash</li>
+          <li>🥫 Leave unwanted food in fridge or counter</li>
+          <li>🔒 Lock all windows and doors</li>
+          <li>📋 Report any damage or missing items</li>
+        </ul>
+
+        <h3>🌐 Spanish</h3>
+        <ul>
+          <li>⏰ Salida antes de <strong>${time}</strong></li>
+          <li>🗑️ Ensacar la basura y tirarla</li>
+          <li>🥫 Dejar comida no deseada en la nevera o encimera</li>
+          <li>🔒 Cerrar todas las ventanas y puertas</li>
+          <li>📋 Informar daños o pérdidas</li>
+        </ul>
+
+        <h3>🌐 Portuguese</h3>
+        <ul>
+          <li>⏰ Check-out até <strong>${time}</strong></li>
+          <li>🗑️ Ensacar o lixo e descartar</li>
+          <li>🥫 Deixar alimentos não desejados na geladeira ou balcão</li>
+          <li>🔒 Trancar todas as janelas e portas</li>
+          <li>📋 Informar danos ou perdas</li>
+        </ul>
+      `;
+    }
+  </script>
+</body>
+</html>
