@@ -81,7 +81,19 @@
       const pass = document.getElementById('wifiPass').value;
       const name = document.getElementById('propertyName').value;
       const time = document.getElementById('checkOutTime').value;
-
+<img id="qrImage" src="${qrUrl}" alt="Wi-Fi QR Code" class="qr">
+  <button onclick="downloadQR()">📥 Download QR Code</button>
+      <script>
+  function downloadQR() {
+    const qr = document.getElementById('qrImage');
+    const link = document.createElement('a');
+    link.href = qr.src;
+    link.download = 'WiFi_QR_Code.png';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
+</script>
       const qrData = `WIFI:T:WPA;S:${ssid};P:${pass};;`;
       const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=150x150`;
 
