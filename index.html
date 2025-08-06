@@ -2,19 +2,21 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>GuestReady Host Info Generator</title>
+  <title>Host Check-Out Builder</title>
   <style>
-    body { font-family: sans-serif; padding: 1em; max-width: 600px; margin: auto; }
+    body { font-family: sans-serif; padding: 1em; max-width: 700px; margin: auto; }
     label { display: block; margin-top: 1em; font-weight: bold; }
     input, textarea { width: 100%; padding: 0.5em; margin-top: 0.3em; }
     button { margin-top: 1em; padding: 0.7em 1.2em; font-size: 1em; }
+    .task-list { margin-top: 1em; }
+    .task-list li { margin-bottom: 0.5em; }
     .output { margin-top: 2em; border-top: 1px solid #ccc; padding-top: 1em; }
     .qr { margin-top: 1em; }
   </style>
 </head>
 <body>
-  <h1>🛎️ Guest Info Generator</h1>
-  <p>Fill in your property details to generate a multilingual Wi-Fi sign and check-out checklist.</p>
+  <h1>🧳 Host Check-Out Builder</h1>
+  <p>Customize your guest check-out checklist and Wi-Fi sign.</p>
 
   <label for="wifiName">Wi-Fi Name (SSID)</label>
   <input type="text" id="wifiName">
@@ -28,11 +30,52 @@
   <label for="checkOutTime">Check-Out Time</label>
   <input type="text" id="checkOutTime" placeholder="e.g. 11:00 AM">
 
-  <button onclick="generate()">Generate Info</button>
+  <label for="newTask">Add a Check-Out Task</label>
+  <input type="text" id="newTask" placeholder="e.g. Take out the trash">
+  <button onclick="addTask()">➕ Add Task</button>
+
+  <ul id="taskList" class="task-list"></ul>
+
+  <button onclick="generate()">🚀 Generate Guest Info</button>
 
   <div class="output" id="output"></div>
 
   <script>
+    const tasks = [];
+
+    function addTask() {
+      const taskInput = document.getElementById('newTask');
+      const task = taskInput.value.trim();
+      if (task) {
+        tasks.push(task);
+        taskInput.value = '';
+        renderTasks();
+      }
+    }
+
+    function renderTasks() {
+      const list = document.getElementById('taskList');
+      list.innerHTML = tasks.map((t, i) => `<li>${i + 1}. ${t}</li>`).join('');
+    }
+
+    function translateTask(task, lang) {
+      const translations = {
+        es: {
+          'Take out the trash': 'Sacar la basura',
+          'Lock all doors': 'Cerrar todas las puertas',
+          'Leave food in fridge': 'Dejar comida en la nevera',
+          'Report damage': 'Informar daños',
+        },
+        pt: {
+          'Take out the trash': 'Levar o lixo para fora',
+          'Lock all doors': 'Trancar todas as portas',
+          'Leave food in fridge': 'Deixar comida na geladeira',
+          'Report damage': 'Informar danos',
+        }
+      };
+      return translations[lang]?.[task] || task;
+    }
+
     function generate() {
       const ssid = document.getElementById('wifiName').value;
       const pass = document.getElementById('wifiPass').value;
@@ -42,6 +85,10 @@
       const qrData = `WIFI:T:WPA;S:${ssid};P:${pass};;`;
       const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=150x150`;
 
+      const taskHTML = tasks.map(t => `<li>🧹 ${t}</li>`).join('');
+      const taskES = tasks.map(t => `<li>🧹 ${translateTask(t, 'es')}</li>`).join('');
+      const taskPT = tasks.map(t => `<li>🧹 ${translateTask(t, 'pt')}</li>`).join('');
+
       document.getElementById('output').innerHTML = `
         <h2>📶 Wi-Fi Sign</h2>
         <p><strong>${name}</strong></p>
@@ -49,31 +96,16 @@
         <img src="${qrUrl}" alt="Wi-Fi QR Code" class="qr">
 
         <h2>✅ Check-Out Checklist</h2>
-        <ul>
-          <li>⏰ Check-out by <strong>${time}</strong></li>
-          <li>🗑️ Bag and dispose of trash</li>
-          <li>🥫 Leave unwanted food in fridge or counter</li>
-          <li>🔒 Lock all windows and doors</li>
-          <li>📋 Report any damage or missing items</li>
-        </ul>
+        <p>Check-out by <strong>${time}</strong></p>
+        <ul>${taskHTML}</ul>
 
         <h3>🌐 Spanish</h3>
-        <ul>
-          <li>⏰ Salida antes de <strong>${time}</strong></li>
-          <li>🗑️ Ensacar la basura y tirarla</li>
-          <li>🥫 Dejar comida no deseada en la nevera o encimera</li>
-          <li>🔒 Cerrar todas las ventanas y puertas</li>
-          <li>📋 Informar daños o pérdidas</li>
-        </ul>
+        <p>Salida antes de <strong>${time}</strong></p>
+        <ul>${taskES}</ul>
 
         <h3>🌐 Portuguese</h3>
-        <ul>
-          <li>⏰ Check-out até <strong>${time}</strong></li>
-          <li>🗑️ Ensacar o lixo e descartar</li>
-          <li>🥫 Deixar alimentos não desejados na geladeira ou balcão</li>
-          <li>🔒 Trancar todas as janelas e portas</li>
-          <li>📋 Informar danos ou perdas</li>
-        </ul>
+        <p>Check-out até <strong>${time}</strong></p>
+        <ul>${taskPT}</ul>
       `;
     }
   </script>
