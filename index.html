@@ -3,15 +3,15 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>QR Code Generator</title>
+  <title>Wi-Fi QR Code Generator</title>
   <style>
     body {
       font-family: sans-serif;
       text-align: center;
       padding: 2em;
-      background: #f9f9f9;
+      background: #f0f0f0;
     }
-    input, button {
+    input, select, button {
       padding: 0.6em;
       margin: 0.5em;
       font-size: 1em;
@@ -22,10 +22,16 @@
   </style>
 </head>
 <body>
-  <h2>🔗 QR Code Generator</h2>
-  <input type="text" id="qrInput" placeholder="Enter URL or text" size="40" />
-  <br />
-  <button onclick="generateQR()">Generate QR</button>
+  <h2>📡 Wi-Fi QR Code Generator</h2>
+  <input type="text" id="ssid" placeholder="Wi-Fi Name (SSID)" size="30" /><br />
+  <input type="text" id="password" placeholder="Password" size="30" /><br />
+  <select id="encryption">
+    <option value="WPA">WPA/WPA2</option>
+    <option value="WEP">WEP</option>
+    <option value="nopass">Open (no password)</option>
+  </select><br />
+  <label><input type="checkbox" id="hidden" /> Hidden Network</label><br />
+  <button onclick="generateWiFiQR()">Generate QR</button>
   <button onclick="downloadQR()">Download PNG</button>
   <br />
   <canvas id="qrCanvas"></canvas>
@@ -33,10 +39,16 @@
   <!-- QR Code Library -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
   <script>
-    function generateQR() {
-      const input = document.getElementById("qrInput").value;
+    function generateWiFiQR() {
+      const ssid = document.getElementById("ssid").value;
+      const password = document.getElementById("password").value;
+      const encryption = document.getElementById("encryption").value;
+      const hidden = document.getElementById("hidden").checked;
+
+      const wifiString = `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden};`;
+
       const canvas = document.getElementById("qrCanvas");
-      QRCode.toCanvas(canvas, input, {
+      QRCode.toCanvas(canvas, wifiString, {
         errorCorrectionLevel: 'H',
         margin: 2,
         scale: 6,
@@ -52,7 +64,7 @@
     function downloadQR() {
       const canvas = document.getElementById("qrCanvas");
       const link = document.createElement("a");
-      link.download = "qr-code.png";
+      link.download = "wifi-qr.png";
       link.href = canvas.toDataURL("image/png");
       link.click();
     }
