@@ -1,112 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Host Check-Out Builder</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QR Code Generator</title>
   <style>
-    body { font-family: sans-serif; padding: 1em; max-width: 700px; margin: auto; }
-    label { display: block; margin-top: 1em; font-weight: bold; }
-    input, textarea { width: 100%; padding: 0.5em; margin-top: 0.3em; }
-    button { margin-top: 1em; padding: 0.7em 1.2em; font-size: 1em; }
-    .task-list { margin-top: 1em; }
-    .task-list li { margin-bottom: 0.5em; }
-    .output { margin-top: 2em; border-top: 1px solid #ccc; padding-top: 1em; }
-    .qr { margin-top: 1em; }
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 2em;
+      background: #f9f9f9;
+    }
+    input, button {
+      padding: 0.6em;
+      margin: 0.5em;
+      font-size: 1em;
+    }
+    canvas {
+      margin-top: 1em;
+    }
   </style>
 </head>
 <body>
-  <h1>🧳 Host Check-Out Builder</h1>
-  <p>Customize your guest check-out checklist and Wi-Fi sign.</p>
+  <h2>🔗 QR Code Generator</h2>
+  <input type="text" id="qrInput" placeholder="Enter URL or text" size="40" />
+  <br />
+  <button onclick="generateQR()">Generate QR</button>
+  <button onclick="downloadQR()">Download PNG</button>
+  <br />
+  <canvas id="qrCanvas"></canvas>
 
-  <label for="wifiName">Wi-Fi Name (SSID)</label>
-  <input type="text" id="wifiName">
-
-  <label for="wifiPass">Wi-Fi Password</label>
-  <input type="text" id="wifiPass">
-
-  <label for="propertyName">Property Name</label>
-  <input type="text" id="propertyName">
-
-  <label for="checkOutTime">Check-Out Time</label>
-  <input type="text" id="checkOutTime" placeholder="e.g. 11:00 AM">
-
-  <label for="newTask">Add a Check-Out Task</label>
-  <input type="text" id="newTask" placeholder="e.g. Take out the trash">
-  <button onclick="addTask()">➕ Add Task</button>
-
-  <ul id="taskList" class="task-list"></ul>
-
-  <button onclick="generate()">🚀 Generate Guest Info</button>
-
-  <div class="output" id="output"></div>
-
+  <!-- QR Code Library -->
+  <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
   <script>
-    const tasks = [];
-
-    function addTask() {
-      const taskInput = document.getElementById('newTask');
-      const task = taskInput.value.trim();
-      if (task) {
-        tasks.push(task);
-        taskInput.value = '';
-        renderTasks();
-      }
-    }
-
-    function renderTasks() {
-      const list = document.getElementById('taskList');
-      list.innerHTML = tasks.map((t, i) => `<li>${i + 1}. ${t}</li>`).join('');
-    }
-
-    function translateTask(task, lang) {
-      const translations = {
-        es: {
-          'Take out the trash': 'Sacar la basura',
-          'Lock all doors': 'Cerrar todas las puertas',
-          'Leave food in fridge': 'Dejar comida en la nevera',
-          'Report damage': 'Informar daños',
-        },
-        pt: {
-          'Take out the trash': 'Levar o lixo para fora',
-          'Lock all doors': 'Trancar todas as portas',
-          'Leave food in fridge': 'Deixar comida na geladeira',
-          'Report damage': 'Informar danos',
+    function generateQR() {
+      const input = document.getElementById("qrInput").value;
+      const canvas = document.getElementById("qrCanvas");
+      QRCode.toCanvas(canvas, input, {
+        errorCorrectionLevel: 'H',
+        margin: 2,
+        scale: 6,
+        color: {
+          dark: "#000000",
+          light: "#ffffff"
         }
-      };
-      return translations[lang]?.[task] || task;
+      }, function (error) {
+        if (error) console.error(error);
+      });
     }
 
-    function generate() {
-      const ssid = document.getElementById('wifiName').value;
-      const pass = document.getElementById('wifiPass').value;
-      const name = document.getElementById('propertyName').value;
-      const time = document.getElementById('checkOutTime').value;
-
-      const qrData = `WIFI:T:WPA;S:${ssid};P:${pass};;`;
-      const qrUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrData)}&size=150x150`;
-
-      const taskHTML = tasks.map(t => `<li>🧹 ${t}</li>`).join('');
-      const taskES = tasks.map(t => `<li>🧹 ${translateTask(t, 'es')}</li>`).join('');
-      const taskPT = tasks.map(t => `<li>🧹 ${translateTask(t, 'pt')}</li>`).join('');
-<img id="qrImage" src="${qrUrl}" alt="Wi-Fi QR Code" class="qr">
-      document.getElementById('output').innerHTML = `
-        <h2>📶 Wi-Fi Sign</h2>
-        <p><strong>${name}</strong></p>
-        <p>Network: <strong>${ssid}</strong><br>Password: <strong>${pass}</strong></p>
-        <img src="${qrUrl}" alt="Wi-Fi QR Code" class="qr">
-
-        <h2>✅ Check-Out Checklist</h2>
-        <p>Check-out by <strong>${time}</strong></p>
-        <ul>${taskHTML}</ul>
-
-        <h3>🌐 Spanish</h3>
-        <p>Salida antes de <strong>${time}</strong></p>
-        <ul>${taskES}</ul>
-
-        <h3>🌐 Portuguese</h3>
-        <p>Check-out até <strong>${time}</strong></p>
-        <ul>${taskPT}</ul>
-      `;
+    function downloadQR() {
+      const canvas = document.getElementById("qrCanvas");
+      const link = document.createElement("a");
+      link.download = "qr-code.png";
+      link.href = canvas.toDataURL("image/png");
+      link.click();
     }
   </script>
 </body>
