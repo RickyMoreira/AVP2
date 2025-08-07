@@ -43,7 +43,7 @@
   <h2>📡 Wi-Fi QR Code Generator</h2>
   <input type="text" id="ssid" placeholder="Wi-Fi Name (SSID)" size="30" /><br />
   <input type="text" id="password" placeholder="Password" size="30" /><br />
-<input type="text" id="qrTitle" placeholder="QR Code Title (e.g. Guest Wi-Fi)" size="30" /><br />
+  <input type="text" id="qrTitle" placeholder="QR Code Title (e.g. Guest Wi-Fi)" size="30" /><br />
   <select id="encryption">
     <option value="WPA">WPA/WPA2</option>
     <option value="WPA">WPA3</option>
@@ -55,16 +55,12 @@
   <button onclick="downloadQR()">Download PNG</button>
 
   <div class="qr-wrapper" id="qrWrapper" style="display:none;">
-    <div class="wifi-label">
-      <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJod... (truncated)" alt="Wi-Fi Icon" />
-      <span>Wi-Fi</span>
+    <div class="wifi-label" id="qrHeader">
+      <!-- This will be dynamically updated -->
     </div>
     <canvas id="qrCanvas"></canvas>
   </div>
-<div class="wifi-label" id="qrHeader">
-<img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJod... (truncated)" alt="Wi-Fi Icon" />
-  <span>Wi-Fi</span>
-</div>
+
   <!-- QR Code Library -->
   <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.1/build/qrcode.min.js"></script>
   <script>
@@ -73,6 +69,7 @@
       const password = document.getElementById("password").value;
       const encryption = document.getElementById("encryption").value;
       const hidden = document.getElementById("hidden").checked;
+      const qrTitle = document.getElementById("qrTitle").value.trim();
 
       const wifiString = `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden};`;
 
@@ -86,8 +83,16 @@
           light: "#ffffff"
         }
       }, function (error) {
-        if (error) console.error(error);
-        else document.getElementById("qrWrapper").style.display = "inline-block";
+        if (error) {
+          console.error(error);
+        } else {
+          const qrHeader = document.getElementById("qrHeader");
+          qrHeader.innerHTML = `
+            <img src="data:image/svg+xml;base64,PHN2ZyBmaWxsPSIjMDAwIiB2aWV3Qm94PSIwIDAgMjQgMjQiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBhdGggZD0iTTIgOC4yYzUuMy01LjMgMTMuOS01LjMgMTkuMiAwbC0xLjQgMS40Yy00LjUtNC40LTEyLjEtNC40LTE2LjYgMGwtMS40LTEuNHpNNSAxaDE0djJoLTE0VjF6bTEuNCAzLjZjMy43LTMuNyA5LjctMy43IDEzLjQgMGwtMS40IDEuNGMtMi45LTIuOS03LjYtMi45LTEwLjUgMGwtMS41LTEuNHpNMTIgMTVjLTEuMSAwLTIuMS0uNC0yLjktMS4yLS44LS44LTEuMi0xLjgtMS4yLTIuOSAwLTEuMS40LTIuMSAxLjItMi45LjgtLjggMS44LTEuMiAyLjktMS4yIDEuMSAwIDIuMS40IDIuOSAxLjIuOC44IDEuMiAxLjggMS4yIDIuOSAwIDEuMS0uNCAyLjEtMS4yIDIuOS0uOC44LTEuOCAxLjItMi45IDEuMnoiLz48L3N2Zz4=" alt="Wi-Fi Icon" />
+            <span>${qrTitle || 'Wi-Fi'}</span>
+          `;
+          document.getElementById("qrWrapper").style.display = "inline-block";
+        }
       });
     }
 
@@ -98,37 +103,6 @@
       link.href = canvas.toDataURL("image/png");
       link.click();
     }
-    function generateWiFiQR() {
-  const ssid = document.getElementById("ssid").value;
-  const password = document.getElementById("password").value;
-  const encryption = document.getElementById("encryption").value;
-  const hidden = document.getElementById("hidden").checked;
-  const qrTitle = document.getElementById("qrTitle").value.trim();
-
-  const wifiString = `WIFI:T:${encryption};S:${ssid};P:${password};H:${hidden};`;
-
-  const canvas = document.getElementById("qrCanvas");
-  QRCode.toCanvas(canvas, wifiString, {
-    errorCorrectionLevel: 'H',
-    margin: 2,
-    scale: 6,
-    color: {
-      dark: "#000000",
-      light: "#ffffff"
-    }
-  }, function (error) {
-    if (error) {
-      console.error(error);
-    } else {
-      const qrHeader = document.getElementById("qrHeader");
-      qrHeader.innerHTML = `
-        <img src="data:image/svg+xml;base64,...your Base64 icon..." alt="Wi-Fi Icon" />
-        <span>${qrTitle || 'Wi-Fi'}</span>
-      `;
-      document.getElementById("qrWrapper").style.display = "inline-block";
-    }
-  });
-}
   </script>
 </body>
 </html>
