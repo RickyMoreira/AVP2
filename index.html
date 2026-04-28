@@ -308,37 +308,38 @@ function closePopup() {
 
      <div id="conteudo-chave"></div>
 
-<script>
-  // Defina aqui a data de liberação (AAAA-MM-DD)
-  const dataLiberacao = new Date("2026-05-10");  
+<details id="detalhes-chave">
+  <summary>🔑 Instruções para pegar a chave</summary>
 
-  // Data atual
+  <div id="conteudo-chave" style="display:none;">
+    <p>* A chave fica em um "LockBox" na parede do lado esquerdo da casa *</p>
+    <p>Digite a Senha: "1472"</p>
+    <p>Assista ao vídeo demonstrativo abaixo para entender como acessar a caixa de chaves:</p>
+    <video src="LockBox.mp4" controls width="100%" poster="thumbnail.jpg">
+      Seu navegador não suporta vídeos incorporados.
+    </video>
+  </div>
+</details>
+
+<script>
+  // Defina a data de liberação (AAAA-MM-DD)
+  const dataLiberacao = new Date("2026-05-10");
   const hoje = new Date();
 
-  // Elemento onde o conteúdo será inserido
-  const container = document.getElementById("conteudo-chave");
+  const detalhes = document.getElementById("detalhes-chave");
+  const conteudo = document.getElementById("conteudo-chave");
 
-  if (hoje >= dataLiberacao) {
-    // Conteúdo liberado
-    container.innerHTML = `
-      <details>
-        <summary>🔑 Instruções para pegar a chave</summary>
-        <p>* A chave fica em um "LockBox" na parede do lado esquerdo da casa *</p>
-        <p>Digite a Senha: "1472"</p>
-        <p>Assista ao vídeo demonstrativo abaixo para entender como acessar a caixa de chaves:</p>
-        <video src="LockBox.mp4" controls width="100%" poster="thumbnail.jpg">
-          Seu navegador não suporta vídeos incorporados.
-        </video>
-      </details>
-    `;
-  } else {
-    // Conteúdo bloqueado
-    container.innerHTML = `
-      <p style="font-size: 1.1em; color: #b00; font-weight: bold;">
-        Estará disponível no dia do Check-in.
-      </p>
-    `;
-  }
+  detalhes.addEventListener("toggle", function (e) {
+    if (hoje < dataLiberacao) {
+      // Impede que o details abra
+      detalhes.open = false;
+
+      alert("Estará disponível no dia do Check-in.");
+    } else {
+      // Libera o conteúdo normalmente
+      conteudo.style.display = "block";
+    }
+  });
 </script>
 
 
